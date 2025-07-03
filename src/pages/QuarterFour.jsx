@@ -155,7 +155,7 @@ const QuarterFour = () => {
   return (
     <div className="p-6">
       <h2 className="text-2xl font-bold text-blue-600 mb-2">
-        📘 Quarter 2 Goals
+        📘 Quarter 4 Goals
       </h2>
       <p className="text-gray-600 text-base mb-4">
         Manage multiple goals with tactics, notes, and status tracking.

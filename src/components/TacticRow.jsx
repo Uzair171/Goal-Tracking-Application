@@ -98,7 +98,6 @@ const TacticRow = ({
         </td>
       </tr>
 
-      {/* Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-gray-800/60 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded shadow-md w-full max-w-md">

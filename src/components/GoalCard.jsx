@@ -1,4 +1,3 @@
-import React from "react";
 import TacticRow from "./TacticRow";
 import ProgressBar from "./ProgressBar";
 import Accordion from "@mui/material/Accordion";
@@ -40,11 +39,10 @@ const GoalCard = ({
       </AccordionSummary>
 
       <AccordionDetails>
-        <div className="relative bg-white p-4 rounded shadow">
-          {/* 🗑 Delete Button at Top-Right */}
+        <div className=" bg-white p-4 rounded shadow">
           <button
             onClick={() => onDeleteGoal(goal.id)}
-            className="absolute top-2 right-2 text-sm bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+            className="  text-sm bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 "
           >
             🗑 Delete Goal
           </button>
@@ -85,7 +83,7 @@ const GoalCard = ({
 
           {addTacticErrorGoalId === goal.id && (
             <p className="text-sm text-red-500 mt-2">
-              ⚠️ Please complete the previous tactic before adding a new one.
+              ⚠️ Please Enter the previous tactic before adding a new one.
             </p>
           )}
         </div>

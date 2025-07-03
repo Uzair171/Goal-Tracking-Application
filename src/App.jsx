@@ -6,12 +6,14 @@ import QuarterOne from "./pages/QuarterOne";
 import QuarterTwo from "./pages/QuarterTwo";
 import QuarterThree from "./pages/QuarterThree";
 import QuarterFour from "./pages/QuarterFour";
+import Dashboard from "./pages/dashboard";
 
 const App = () => {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Home />}>
+          <Route index element={<Dashboard />} />
           <Route path="quarter1" element={<QuarterOne />} />
           <Route path="quarter2" element={<QuarterTwo />} />
           <Route path="quarter3" element={<QuarterThree />} />

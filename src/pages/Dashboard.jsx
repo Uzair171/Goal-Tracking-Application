@@ -1,9 +1,12 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import ProgressBar from "../components/ProgressBar";
+import { setGoals } from "../store/goalSlice";
 
 const Dashboard = () => {
+  const dispatch = useDispatch();
+
   const {
     quarterOneGoals,
     quarterTwoGoals,
@@ -15,25 +18,21 @@ const Dashboard = () => {
     {
       title: "📘 Quarter 1",
       goals: quarterOneGoals,
-
       path: "/quarter1",
     },
     {
       title: "📙 Quarter 2",
       goals: quarterTwoGoals,
-      colorClass: "text-orange-500",
       path: "/quarter2",
     },
     {
       title: "📗 Quarter 3",
       goals: quarterThreeGoals,
-
       path: "/quarter3",
     },
     {
       title: "📕 Quarter 4",
       goals: quarterFourGoals,
-
       path: "/quarter4",
     },
   ];
@@ -62,14 +61,32 @@ const Dashboard = () => {
     };
   };
 
+  const handleClearAll = () => {
+    if (window.confirm("⚠️ Are you sure you want to delete all goals?")) {
+      ["quarterOne", "quarterTwo", "quarterThree", "quarterFour"].forEach(
+        (q) => {
+          dispatch(setGoals({ quarter: q, goals: [] }));
+        }
+      );
+    }
+  };
+
   return (
     <div className="p-8">
-      <h1 className="text-3xl font-bold text-blue-700 mb-6">
-        📊 Dashboard Overview
-      </h1>
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-3xl font-bold text-blue-700">
+          📊 Dashboard Overview
+        </h1>
+        <button
+          onClick={handleClearAll}
+          className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded text-sm"
+        >
+          🗑 Clear All Goals
+        </button>
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {quarterData.map(({ title, goals, path, color }) => {
+        {quarterData.map(({ title, goals, path }) => {
           const stats = getStats(goals);
 
           return (
@@ -78,7 +95,7 @@ const Dashboard = () => {
               to={path}
               className="border rounded-lg shadow p-5 hover:shadow-md transition-all bg-white"
             >
-              <h2 className={`text-xl font-semibold  mb-2`}>{title}</h2>
+              <h2 className="text-xl font-semibold mb-2">{title}</h2>
               <ProgressBar progress={stats.progress} />
               <ul className="mt-3 text-sm text-gray-700 space-y-1">
                 <li>🎯 Goals: {stats.totalGoals}</li>

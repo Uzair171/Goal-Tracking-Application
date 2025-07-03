@@ -14,7 +14,7 @@ const GoalInput = ({ value, onChange, onSubmit }) => {
 
   return (
     <div className="mb-6">
-      <div className="flex gap-2">
+      <div className="flex gap-3">
         <input
           required
           type="text"
@@ -24,21 +24,19 @@ const GoalInput = ({ value, onChange, onSubmit }) => {
             onChange(e);
           }}
           placeholder="Enter new goal title"
-          className={`flex-grow border px-3 py-2 rounded ${
+          className={`flex-grow border border-gray-200 px-4 py-2 rounded-md text-base focus:outline-none focus:ring-2 focus:ring-blue-500 ${
             showError ? "border-red-500" : ""
           }`}
         />
         <button
           onClick={() => handleSubmit()}
-          className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 whitespace-nowrap"
+          className="bg-blue-500 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-600 whitespace-nowrap"
         >
-          ➕ Add Goal
+          Add Goal
         </button>
       </div>
       {showError && (
-        <p className="text-red-500 text-sm mt-1">
-          ⚠️ Goal title cannot be empty.
-        </p>
+        <p className="text-red-600 text-sm mt-2">Goal title cannot be empty</p>
       )}
     </div>
   );

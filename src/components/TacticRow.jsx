@@ -157,7 +157,6 @@ const TacticRow = ({
         </td>
       </tr>
 
-      {/* Obstacle Items */}
       {(tactic.obstacles || []).map((obs) => (
         <tr key={obs.id}>
           <td colSpan="4" className="pl-10 py-2">
@@ -215,7 +214,6 @@ const TacticRow = ({
         </td>
       </tr>
 
-      {/* Edit Tactic Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-gray-600/50 flex items-center justify-center z-50 transition-opacity duration-300">
           <div className="bg-white p-5 rounded-lg shadow-lg w-full max-w-md transform transition-all duration-300">
@@ -261,7 +259,6 @@ const TacticRow = ({
         </div>
       )}
 
-      {/* Add/Edit Obstacle Modal */}
       {showObstacleModal && (
         <div className="fixed inset-0 bg-gray-600/50 flex items-center justify-center z-50 transition-opacity duration-300">
           <div className="bg-white p-5 rounded-lg shadow-lg w-full max-w-md transform transition-all duration-300">

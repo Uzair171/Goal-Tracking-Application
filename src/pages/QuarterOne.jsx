@@ -34,7 +34,7 @@ const QuarterOne = () => {
       title: newGoalName,
       tactics: [],
     };
-    dispatch(addGoal({ quarter: "quarterOne", goal: newGoal })); // ✅ Quarter scoped
+    dispatch(addGoal({ quarter: "quarterOne", goal: newGoal }));
     setNewGoalName("");
   };
 

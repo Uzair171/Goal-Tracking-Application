@@ -1,12 +1,46 @@
-# React + Vite
+# 🎯 Goal Tracking Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, interactive React-based application to plan, track, and manage your goals quarter-wise with progress tracking, tactics, deadlines, and obstacles.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Features
 
-## Expanding the ESLint configuration
+- 🗓 **Quarter Management**  
+  - Add custom quarters like `Q1 2025`, `Q2 2026` with real date ranges  
+  - Toggle visibility of quarters  
+  - Persist quarters using Redux + redux-persist
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- 🎯 **Goal Management**  
+  - Add multiple goals under each quarter  
+  - Set a deadline within the quarter date range  
+  - See warning if the goal's deadline is missed  
+
+- 📋 **Tactic Management**
+  - Add multiple tactics per goal
+  - Track status (completed/incomplete)
+  - Inline editing and note-taking
+  - Delete individual tactics
+  - Completion progress bar
+
+- 🚧 **Obstacle Tracking**
+  - Add obstacles under each tactic
+  - Mark obstacles completed
+  - Tightly coupled with the tactic flow
+
+- 🧠 **Smart UI**
+  - Accordion-style quarters view
+  - Clean goal and tactic layout
+  - Animated toggles and transitions
+
+---
+
+## 🧑‍💻 Tech Stack
+
+- **React** + Vite
+- **Redux Toolkit** (for global state)
+- **Redux Persist** (to persist data)
+- **Tailwind CSS** (for styling)
+- **Material UI (Accordion)**
+
+

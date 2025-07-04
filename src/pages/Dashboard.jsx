@@ -5,68 +5,45 @@ import { setGoals } from "../store/goalSlice";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
-
-  const {
-    quarterOneGoals,
-    quarterTwoGoals,
-    quarterThreeGoals,
-    quarterFourGoals,
-  } = useSelector((state) => state.goals);
-
-  const quarterData = [
-    {
-      title: "📘 Quarter 1",
-      goals: quarterOneGoals,
-      path: "/quarter1",
-    },
-    {
-      title: "📙 Quarter 2",
-      goals: quarterTwoGoals,
-      path: "/quarter2",
-    },
-    {
-      title: "📗 Quarter 3",
-      goals: quarterThreeGoals,
-      path: "/quarter3",
-    },
-    {
-      title: "📕 Quarter 4",
-      goals: quarterFourGoals,
-      path: "/quarter4",
-    },
-  ];
+  const quarters = useSelector((state) => state.ui?.quarters || []);
+  const goalsByQuarter = useSelector((state) => {
+    console.log("Goals by quarter:", state.goals?.goalsByQuarter);
+    return state.goals?.goalsByQuarter || {};
+  });
 
   const getStats = (goals) => {
     const totalGoals = goals.length;
-    const totalTactics = goals.reduce(
-      (sum, goal) => sum + goal.tactics.length,
-      0
-    );
-    const completedTactics = goals.reduce(
-      (sum, goal) => sum + goal.tactics.filter((t) => t.isCompleted).length,
-      0
-    );
+
+    let completedGoals = 0;
+    let incompleteGoals = 0;
+
+    goals.forEach((goal) => {
+      const totalTactics = goal.tactics.length;
+      const completedTactics = goal.tactics.filter((t) => t.isCompleted).length;
+
+      if (totalTactics > 0 && completedTactics === totalTactics) {
+        completedGoals += 1;
+      } else {
+        incompleteGoals += 1;
+      }
+    });
+
     const progress =
-      totalTactics > 0
-        ? Math.round((completedTactics / totalTactics) * 100)
-        : 0;
+      totalGoals > 0 ? Math.round((completedGoals / totalGoals) * 100) : 0;
 
     return {
       totalGoals,
-      totalTactics,
-      completedTactics,
-      incompleteTactics: totalTactics - completedTactics,
+      completedGoals,
+      incompleteGoals,
       progress,
     };
   };
 
   const handleClearAll = () => {
     if (window.confirm("⚠️ Are you sure you want to delete all goals?")) {
-      ["quarterOne", "quarterTwo", "quarterThree", "quarterFour"].forEach(
-        (q) => {
-          dispatch(setGoals({ quarter: q, goals: [] }));
-        }
-      );
+      Object.keys(goalsByQuarter).forEach((quarter) => {
+        dispatch(setGoals({ quarter, goals: [] }));
+      });
     }
   };
 
@@ -85,8 +62,8 @@ const Dashboard = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {quarterData.map(({ title, goals, path }) => {
-          const stats = getStats(goals);
+        {quarters.map(({ label, path, id, startDate, endDate }) => {
+          const stats = getStats(goalsByQuarter[id] || []);
 
           return (
             <Link
@@ -94,12 +71,15 @@ const Dashboard = () => {
               to={path}
               className="border rounded-lg shadow p-5 hover:shadow-md transition-all bg-white"
             >
-              <h2 className="text-xl font-semibold mb-2">{title}</h2>
+              <h2 className="text-xl font-semibold mb-2">{label}</h2>
+              <p className="text-sm text-gray-600 mb-2">
+                {startDate} to {endDate}
+              </p>
               <ProgressBar progress={stats.progress} />
               <ul className="mt-3 text-sm text-gray-700 space-y-1">
-                <li>🎯 Goals: {stats.totalGoals}</li>
-                <li>✅ Completed Tactics: {stats.completedTactics}</li>
-                <li>❌ Incomplete Tactics: {stats.incompleteTactics}</li>
+                <li>🎯 Total Goals: {stats.totalGoals}</li>
+                <li>✅ Completed Goals: {stats.completedGoals}</li>
+                <li>❌ Incomplete Goals: {stats.incompleteGoals}</li>
               </ul>
             </Link>
           );

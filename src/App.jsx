@@ -12,6 +12,7 @@ const App = () => {
           <Route index element={<Dashboard />} />
           <Route path="/quarter/:quarterId" element={<Quarter />} />
         </Route>
+        route
       </Routes>
     </Router>
   );

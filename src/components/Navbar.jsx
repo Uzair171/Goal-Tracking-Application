@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -10,6 +10,7 @@ import { addQuarter, deleteQuarter } from "../store/uiSlice";
 
 const Navbar = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const location = useLocation();
   const quarters = useSelector((state) => state.ui?.quarters || []);
   const visibleQuarters = useSelector(
@@ -80,6 +81,13 @@ const Navbar = () => {
     }
   };
 
+  // ✅ Redirect to dashboard if all quarters are deleted
+  useEffect(() => {
+    if (quarters.length === 0) {
+      navigate("/");
+    }
+  }, [quarters, navigate]);
+
   return (
     <aside className="w-1/4 bg-blue-50 border-r border-gray-200 p-6 relative">
       <h1 className="text-2xl font-bold text-blue-600 mb-6">🎯 Goal Tracker</h1>
@@ -148,6 +156,7 @@ const Navbar = () => {
             <h3 className="text-lg font-semibold mb-4 text-gray-900">
               Add New Quarter
             </h3>
+
             <div className="mb-4">
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Quarter Name
@@ -161,6 +170,7 @@ const Navbar = () => {
                 autoFocus
               />
             </div>
+
             <div className="mb-4">
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Year
@@ -177,6 +187,7 @@ const Navbar = () => {
                 ))}
               </select>
             </div>
+
             <div className="mb-4">
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Quarter
@@ -193,6 +204,7 @@ const Navbar = () => {
                 ))}
               </select>
             </div>
+
             <div className="flex justify-end gap-3">
               <button
                 onClick={() => {

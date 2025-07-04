@@ -7,7 +7,7 @@ import uiReducer from "./uiSlice";
 const persistConfig = {
   key: "root",
   storage,
-  version: 2, // Incremented to reset persisted state
+  version: 2,
   blacklist: [],
 };
 

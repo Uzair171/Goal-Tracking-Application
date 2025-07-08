@@ -1,4 +1,3 @@
-import React from "react";
 import TacticRow from "./TacticRow";
 import ProgressBar from "./ProgressBar";
 
